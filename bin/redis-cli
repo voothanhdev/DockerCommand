@@ -1,0 +1,2 @@
+#!/bin/sh
+doco exec redis redis-cli "$@"

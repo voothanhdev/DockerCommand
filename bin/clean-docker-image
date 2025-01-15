@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ "$1" == "--help" ] || [ "$1" == "-h" ];then
+    printf "Usage: clean-docker-image\t clear dangling docker image" && exit
+fi
+
+images=$(docker images -f "dangling=true" -q)
+
+if [ -n "$images" ]; then
+    docker rmi -f "$(docker images -f "dangling=true" -q)"
+else
+    printf "No dangling images found!"
+fi

@@ -1,0 +1,9 @@
+#!/bin/sh
+! docker info > /dev/null 2>&1 && echo "Docker is not running" && exit
+! docker-compose --version &> /dev/null && ! docker compose version &> /dev/null && echo "Docker Compose isn't installed." && exit
+
+if docker compose version &> /dev/null; then
+    docker compose "$@";
+else
+    docker-compose "$@";
+fi
