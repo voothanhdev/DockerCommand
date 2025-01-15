@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+source helper/init
+
+if echo "$SHELL" | grep "zsh" >/dev/null; then
+    sed -i "/VT_LEMP/d" "$HOME/.zshrc"
+elif echo "$SHELL" | grep "csh" >/dev/null; then
+    sed -i "/ VT_LEMP/d" "$HOME/.cshrc"
+elif echo "$SHELL" | grep "ksh" >/dev/null; then
+    sed -i "/VT_LEMP/d" "$HOME/.profile"
+elif echo "$SHELL" | grep "bash" >/dev/null; then
+    sed -i "/VT_LEMP/d" "$HOME/.bashrc"
+fi
+
+rm -rf "${VT_LEMP}"

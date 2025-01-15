@@ -1,0 +1,15 @@
+#!/bin/sh
+
+USER=${USER:-$(id -u -n)}
+
+HOME="${HOME:-$(getent passwd $USER 2>/dev/null | cut -d: -f6)}"
+# macOS does not have getent, but this works even if $HOME is unset
+HOME="${HOME:-$(eval echo ~$USER)}"
+
+LEMP="${LEMP:-$HOME/.voothanh-doco-lemp}"
+
+CURRENT_FOLDER="$(pwd)"
+
+# Default settings
+REPO=${REPO:-voothanhdev/docker-lemp}
+REMOTE=${REMOTE:-https://github.com/${REPO}.git}

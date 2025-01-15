@@ -1,0 +1,25 @@
+#!/bin/sh
+source helper/init
+
+cd "${LEMP}" || return 1;
+git fetch 2> /dev/null
+UPDATE="y"
+
+if [ "$(git rev-list HEAD...origin/master --count)" -lt 1 ]; then
+    cd "$CURRENT_FOLDER" && return 1;
+fi
+
+printf "\033[1m\033[34mDocker LEMP has a new version. Would you like to update? [Y/n] \033[0m "
+read -r UPDATE
+
+if [ -z "$UPDATE" ] || [ "$UPDATE" = $'\n' ]; then
+    UPDATE="y"
+fi
+
+case "$UPDATE" in
+    [yY])
+        git reset --hard origin/master > /dev/null
+        printf "\033[1m\033[32mUpdate successful!\033[0m"
+        ;;
+esac
+cd "$CURRENT_FOLDER" || return 1;
